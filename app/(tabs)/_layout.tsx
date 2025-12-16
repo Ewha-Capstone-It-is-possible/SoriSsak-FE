@@ -1,14 +1,37 @@
-import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import { Tabs } from "expo-router";
+import { View } from "react-native";
 
-const TabLayout = () => {
+export default function TabLayout() {
   return (
-    <View>
-      <Text>TabLayout</Text>
-    </View>
+    <Tabs
+      screenOptions={{
+        headerShown: false,
+        tabBarStyle: {
+          height: 64,
+          backgroundColor: "#FFFFFF",
+          borderTopWidth: 0,
+          elevation: 10,
+        },
+        tabBarLabelStyle: {
+          fontSize: 12,
+        },
+      }}
+    >
+      {/* 말하기 탭 */}
+      <Tabs.Screen
+        name="(speaking)"
+        options={{
+          title: "말하기",
+        }}
+      />
+
+      {/* 배지 탭 */}
+      <Tabs.Screen
+        name="(badge)"
+        options={{
+          title: "배지",
+        }}
+      />
+    </Tabs>
   );
-};
-
-export default TabLayout;
-
-const styles = StyleSheet.create({});
+}
