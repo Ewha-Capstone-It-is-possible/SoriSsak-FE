@@ -5,8 +5,16 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import InputBox from "@/components/InputBox";
 import { FONT } from "@/constants/font";
 import MainButton from "@/components/MainButton";
+import { useRouter } from "expo-router";
 
 const Login = () => {
+  const router = useRouter();
+
+  const handleLogin = () => {
+    // 로그인 성공했다고 가정
+    router.push("/onboarding");
+  };
+
   return (
     <LinearGradient
       colors={["#FFF8DF", "#FFF8DF", "#DBFFB5"]}
@@ -58,7 +66,7 @@ const Login = () => {
               />
             </View>
             <View style={{ gap: 13 }}>
-              <MainButton size="medium" selected>
+              <MainButton size="medium" selected onPress={handleLogin}>
                 로그인
               </MainButton>
               <Text
