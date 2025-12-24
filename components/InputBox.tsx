@@ -1,5 +1,5 @@
-import { StyleSheet, TextInput, TextInputProps } from "react-native";
 import React from "react";
+import { StyleSheet, TextInput, TextInputProps } from "react-native";
 
 type InputBoxProps = TextInputProps;
 
@@ -23,5 +23,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     backgroundColor: "#FFFFFF",
     fontSize: 14,
+    borderWidth: 1,
+    borderColor: "#F0F0F0",
   },
 });
