@@ -1,10 +1,11 @@
-import { View, Text, StyleSheet, Pressable } from "react-native";
-import { useState } from "react";
+import Dropdown from "@/components/Dropdown";
 import InputBox from "@/components/InputBox";
 import { FONT } from "@/constants/font";
+import { useState } from "react";
+import { StyleSheet, Text, View } from "react-native";
 
 type Props = {
-  // 나중에 answers 연결할 거라면 여기에 추가
+  // 나중에 answers 연결 시 여기에 정의하기
 };
 
 export default function Step1(props: Props) {
@@ -19,87 +20,65 @@ export default function Step1(props: Props) {
       <Text style={styles.title}>아이를 소개해주세요.</Text>
 
       {/* Section */}
-      <Text style={styles.sectionTitle}>아이의 정보</Text>
+      <View style={{ gap: 40 }}>
+        <Text style={styles.sectionTitle}>아이의 정보</Text>
 
-      {/* Name */}
-      <View style={styles.field}>
-        <Text style={styles.label}>
-          아이 이름 <Text style={styles.required}>*</Text>
-        </Text>
-        <InputBox
-          placeholder="아이 이름을 입력해주세요."
-          value={name}
-          onChangeText={setName}
-        />
-      </View>
-
-      {/* Birth */}
-      <View style={styles.field}>
-        <Text style={styles.label}>
-          생년월일 <Text style={styles.required}>*</Text>
-        </Text>
-        <InputBox
-          placeholder="생년월일을 입력해주세요."
-          value={birth}
-          onChangeText={setBirth}
-        />
-      </View>
-
-      {/* Gender */}
-      <View style={styles.field}>
-        <Text style={styles.label}>
-          성별 <Text style={styles.required}>*</Text>
-        </Text>
-
-        <View style={styles.selectRow}>
-          {["남아", "여아"].map((item) => {
-            const selected = gender === item;
-            return (
-              <Pressable
-                key={item}
-                onPress={() => setGender(item)}
-                style={[styles.selectBox, selected && styles.selectBoxActive]}
-              >
-                <Text
-                  style={[
-                    styles.selectText,
-                    selected && styles.selectTextActive,
-                  ]}
-                >
-                  {item}
-                </Text>
-              </Pressable>
-            );
-          })}
+        {/* Name */}
+        <View style={{ gap: 10 }}>
+          <Text style={styles.label}>
+            아이 이름 <Text style={styles.required}>*</Text>
+          </Text>
+          <InputBox
+            placeholder="아이 이름을 입력해주세요."
+            value={name}
+            onChangeText={setName}
+          />
         </View>
-      </View>
 
-      {/* Speech Level */}
-      <View style={styles.field}>
-        <Text style={styles.label}>
-          언어 발화 수준 <Text style={styles.required}>*</Text>
-        </Text>
+        {/* Birth */}
+        <View style={{ gap: 10 }}>
+          <Text style={styles.label}>
+            생년월일 <Text style={styles.required}>*</Text>
+          </Text>
+          <InputBox
+            placeholder="생년월일을 입력해주세요."
+            value={birth}
+            onChangeText={setBirth}
+          />
+        </View>
 
-        <View style={styles.selectRow}>
-          {["발화 없음", "단어", "문장"].map((item) => {
-            const selected = speechLevel === item;
-            return (
-              <Pressable
-                key={item}
-                onPress={() => setSpeechLevel(item)}
-                style={[styles.selectBox, selected && styles.selectBoxActive]}
-              >
-                <Text
-                  style={[
-                    styles.selectText,
-                    selected && styles.selectTextActive,
-                  ]}
-                >
-                  {item}
-                </Text>
-              </Pressable>
-            );
-          })}
+        {/* Gender */}
+        <View style={{ gap: 10 }}>
+          <Text style={styles.label}>
+            성별 <Text style={styles.required}>*</Text>
+          </Text>
+
+          <Dropdown
+            placeholder="성별을 선택해주세요"
+            options={[
+              { label: "남아", value: "male" },
+              { label: "여아", value: "female" },
+            ]}
+            onChange={(v) => console.log(v)}
+          />
+        </View>
+
+        {/* Speech Level */}
+        <View style={{ gap: 10 }}>
+          <Text style={styles.label}>
+            언어 발화 수준 <Text style={styles.required}>*</Text>
+          </Text>
+          <Dropdown
+            placeholder="성별을 선택해주세요"
+            options={[
+              { label: "발화 없음", value: "none" },
+              { label: "조금의 단어 발화 가능", value: "some voca" },
+              { label: "단어 발화 가능", value: "voca" },
+              { label: "조금의 문장 발화 가능", value: " some sentence" },
+              { label: "문장 발화 가능", value: "sentence" },
+            ]}
+            onChange={(v) => console.log(v)}
+          />
         </View>
       </View>
     </View>
@@ -112,26 +91,21 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    fontSize: 22,
+    fontSize: 24,
     fontFamily: FONT.cookie.bold,
     color: "#232323",
-    marginBottom: 24,
+    marginBottom: 50,
   },
 
   sectionTitle: {
     fontSize: 16,
     fontFamily: FONT.cookie.bold,
-    marginBottom: 16,
-  },
-
-  field: {
-    marginBottom: 20,
   },
 
   label: {
     fontSize: 14,
-    marginBottom: 8,
     color: "#232323",
+    fontFamily: FONT.cookie.regular,
   },
 
   required: {

@@ -1,8 +1,7 @@
-// app/onboarding/index.tsx
-import { useEffect, useState, JSX } from "react";
-import { View, StyleSheet, BackHandler } from "react-native";
+import GLOBAL from "@/styles/global.style";
 import { useRouter } from "expo-router";
-
+import { JSX, useEffect, useState } from "react";
+import { BackHandler, ScrollView, StyleSheet, View } from "react-native";
 import ProgressBar from "./ProgressBar";
 
 // steps
@@ -13,8 +12,9 @@ import Step4 from "./steps/Step4";
 import Step5 from "./steps/Step5";
 
 // components
+import Header from "@/components/Header";
 import MainButton from "@/components/MainButton";
-import Header from "@/components/Header"; // ← 뒤로가기 + 온보딩
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const TOTAL_STEPS = 5;
 
@@ -64,30 +64,32 @@ export default function Onboarding() {
 
   return (
     <>
-      <Header
-        title="온보딩"
-        onBack={stepNum === 1 ? router.back : handlePrev}
-      />
-      <View style={styles.container}>
-        <ProgressBar current={stepNum} total={TOTAL_STEPS} />
-
-        <View style={styles.content}>{stepComponents[stepNum]}</View>
-
-        <View style={styles.footer}>
-          {stepNum > 1 && (
-            <MainButton
-              size="medium"
-              style={styles.prevButton}
-              onPress={handlePrev}
-            >
-              ← 이전
-            </MainButton>
-          )}
-
-          <MainButton size="medium" onPress={handleNext}>
-            다음 →
-          </MainButton>
+      <SafeAreaView style={GLOBAL.safeArea}>
+        <Header
+          title="온보딩"
+          onBack={stepNum === 1 ? router.back : handlePrev}
+        />
+        <View style={{ paddingHorizontal: 30 }}>
+          <ProgressBar current={stepNum} total={TOTAL_STEPS} />
         </View>
+        <ScrollView style={GLOBAL.container}>
+          <View style={styles.content}>{stepComponents[stepNum]}</View>
+        </ScrollView>
+      </SafeAreaView>
+      <View style={styles.bottom}>
+        {stepNum > 1 && (
+          <MainButton
+            size="medium"
+            style={styles.prevButton}
+            onPress={handlePrev}
+          >
+            ← 이전
+          </MainButton>
+        )}
+
+        <MainButton size="medium" onPress={handleNext}>
+          다음 →
+        </MainButton>
       </View>
     </>
   );
@@ -115,4 +117,5 @@ const styles = StyleSheet.create({
   prevButton: {
     backgroundColor: "#FFFFFF",
   },
+  bottom: { padding: 30, backgroundColor: "#ffffff" },
 });
