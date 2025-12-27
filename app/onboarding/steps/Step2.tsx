@@ -1,7 +1,14 @@
-import { View, Text, StyleSheet, Pressable, Image } from "react-native";
-import { useState } from "react";
 import InputBox from "@/components/InputBox";
 import { FONT } from "@/constants/font";
+import { useState } from "react";
+import {
+  Image,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 
 const REPORT_OPTIONS = ["앱 내 알림", "이메일", "SMS"];
 const SENSE_OPTIONS = ["청각", "시각", "촉각(진동)"];
@@ -33,115 +40,125 @@ export default function Step2() {
       </Text>
 
       {/* 부모 정보 */}
-      <Text style={styles.sectionTitle}>부모 정보</Text>
+      <View style={{ gap: 20 }}>
+        {/* PIN */}
+        <ScrollView style={{ gap: 20 }}>
+          <Text style={styles.sectionTitle}>부모 정보</Text>
+          <View style={styles.field}>
+            <Text style={styles.label}>
+              부모 모드 전환 비밀번호 <Text style={styles.required}>*</Text>
+            </Text>
+            <InputBox
+              placeholder="숫자 4자리를 입력해주세요."
+              value={pin}
+              onChangeText={setPin}
+              keyboardType="number-pad"
+              maxLength={4}
+              secureTextEntry
+            />
+            <Text style={styles.helper}>
+              아이가 설정을 변경하지 못하도록 보호합니다
+            </Text>
+          </View>
 
-      {/* PIN */}
-      <View style={styles.field}>
-        <Text style={styles.label}>
-          부모 모드 전환 비밀번호 <Text style={styles.required}>*</Text>
-        </Text>
-        <InputBox
-          placeholder="숫자 4자리를 입력해주세요."
-          value={pin}
-          onChangeText={setPin}
-          keyboardType="number-pad"
-          maxLength={4}
-          secureTextEntry
-        />
-        <Text style={styles.helper}>
-          아이가 설정을 변경하지 못하도록 보호합니다
-        </Text>
-      </View>
+          {/* Report */}
+          <View style={styles.field}>
+            <Text style={styles.label}>
+              리포트 수신 방법 (복수 선택 가능)
+              <Text style={styles.required}> *</Text>
+            </Text>
 
-      {/* Report */}
-      <View style={styles.field}>
-        <Text style={styles.label}>
-          리포트 수신 방법 (복수 선택 가능)
-          <Text style={styles.required}> *</Text>
-        </Text>
+            <View style={styles.checkRow}>
+              {REPORT_OPTIONS.map((item) => {
+                const checked = reports.includes(item);
+                return (
+                  <Pressable
+                    key={item}
+                    onPress={() => toggleReport(item)}
+                    style={[styles.checkBox, checked && styles.checkBoxActive]}
+                  >
+                    <Text
+                      style={[
+                        styles.checkText,
+                        checked && styles.checkTextActive,
+                      ]}
+                    >
+                      {item}
+                    </Text>
+                  </Pressable>
+                );
+              })}
+            </View>
+          </View>
 
-        <View style={styles.checkRow}>
-          {REPORT_OPTIONS.map((item) => {
-            const checked = reports.includes(item);
-            return (
-              <Pressable
-                key={item}
-                onPress={() => toggleReport(item)}
-                style={[styles.checkBox, checked && styles.checkBoxActive]}
-              >
-                <Text
-                  style={[styles.checkText, checked && styles.checkTextActive]}
-                >
-                  {item}
-                </Text>
-              </Pressable>
-            );
-          })}
-        </View>
-      </View>
+          {/* Teacher Code */}
+          <View style={styles.field}>
+            <Text style={styles.label}>교사 코드 입력</Text>
+            <InputBox
+              placeholder="교사 코드를 입력해주세요."
+              value={teacherCode}
+              onChangeText={setTeacherCode}
+            />
+          </View>
 
-      {/* Teacher Code */}
-      <View style={styles.field}>
-        <Text style={styles.label}>교사 코드 입력</Text>
-        <InputBox
-          placeholder="교사 코드를 입력해주세요."
-          value={teacherCode}
-          onChangeText={setTeacherCode}
-        />
-      </View>
+          {/* 아이 추가 사항 */}
 
-      {/* 아이 추가 사항 */}
-      <Text style={styles.sectionTitle}>아이 추가 사항</Text>
+          <Text style={styles.sectionTitle}>아이 추가 사항</Text>
+          <Text style={styles.plus}>
+            아이의 관심사에 맞춰 사용 환경을 제공합니다.
+          </Text>
 
-      {/* Mood */}
-      <View style={styles.field}>
-        <Text style={styles.label}>
-          좋아하는 그림의 분위기 <Text style={styles.required}>*</Text>
-        </Text>
+          {/* Mood */}
+          <View style={styles.field}>
+            <Text style={styles.label}>
+              좋아하는 그림의 분위기 <Text style={styles.required}>*</Text>
+            </Text>
 
-        <View style={styles.imageRow}>
-          {[0, 1, 2].map((idx) => {
-            const selected = selectedMood === idx;
-            return (
-              <Pressable
-                key={idx}
-                onPress={() => setSelectedMood(idx)}
-                style={[styles.imageBox, selected && styles.imageBoxActive]}
-              >
-                <Image
-                  source={require("@/assets/images/logo1.png")}
-                  style={styles.image}
-                />
-              </Pressable>
-            );
-          })}
-        </View>
-      </View>
+            <View style={styles.imageRow}>
+              {[0, 1, 2].map((idx) => {
+                const selected = selectedMood === idx;
+                return (
+                  <Pressable
+                    key={idx}
+                    onPress={() => setSelectedMood(idx)}
+                    style={[styles.imageBox, selected && styles.imageBoxActive]}
+                  >
+                    <Image
+                      source={require("@/assets/images/logo1.png")}
+                      style={styles.image}
+                    />
+                  </Pressable>
+                );
+              })}
+            </View>
+          </View>
 
-      {/* Sense */}
-      <View style={styles.field}>
-        <Text style={styles.label}>
-          이런 감각에 더 예민해요 <Text style={styles.required}>*</Text>
-        </Text>
+          {/* Sense */}
+          <View style={styles.field}>
+            <Text style={styles.label}>
+              이런 감각에 더 예민해요 <Text style={styles.required}>*</Text>
+            </Text>
 
-        <View style={styles.chipRow}>
-          {SENSE_OPTIONS.map((item) => {
-            const active = senses.includes(item);
-            return (
-              <Pressable
-                key={item}
-                onPress={() => toggleSense(item)}
-                style={[styles.chip, active && styles.chipActive]}
-              >
-                <Text
-                  style={[styles.chipText, active && styles.chipTextActive]}
-                >
-                  {item}
-                </Text>
-              </Pressable>
-            );
-          })}
-        </View>
+            <View style={styles.chipRow}>
+              {SENSE_OPTIONS.map((item) => {
+                const active = senses.includes(item);
+                return (
+                  <Pressable
+                    key={item}
+                    onPress={() => toggleSense(item)}
+                    style={[styles.chip, active && styles.chipActive]}
+                  >
+                    <Text
+                      style={[styles.chipText, active && styles.chipTextActive]}
+                    >
+                      {item}
+                    </Text>
+                  </Pressable>
+                );
+              })}
+            </View>
+          </View>
+        </ScrollView>
       </View>
     </View>
   );
@@ -160,7 +177,7 @@ const styles = StyleSheet.create({
   },
 
   sectionTitle: {
-    fontSize: 16,
+    fontSize: 20,
     fontFamily: FONT.cookie.bold,
     marginVertical: 16,
   },
@@ -173,6 +190,14 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginBottom: 8,
     color: "#232323",
+    fontFamily: FONT.cookie.regular,
+  },
+
+  plus: {
+    fontSize: 17,
+    marginBottom: 8,
+    color: "#232323",
+    fontFamily: FONT.cookie.regular,
   },
 
   required: {
@@ -182,7 +207,7 @@ const styles = StyleSheet.create({
   helper: {
     marginTop: 6,
     fontSize: 12,
-    color: "#8A8A8A",
+    color: "#C3C3C3",
   },
 
   checkRow: {

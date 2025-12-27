@@ -1,7 +1,7 @@
 import GLOBAL from "@/styles/global.style";
 import { useRouter } from "expo-router";
 import { JSX, useEffect, useState } from "react";
-import { BackHandler, ScrollView, StyleSheet, View } from "react-native";
+import { BackHandler, StyleSheet, View } from "react-native";
 import ProgressBar from "./ProgressBar";
 
 // steps
@@ -72,9 +72,9 @@ export default function Onboarding() {
         <View style={{ paddingHorizontal: 30 }}>
           <ProgressBar current={stepNum} total={TOTAL_STEPS} />
         </View>
-        <ScrollView style={GLOBAL.container}>
+        <View style={GLOBAL.container}>
           <View style={styles.content}>{stepComponents[stepNum]}</View>
-        </ScrollView>
+        </View>
       </SafeAreaView>
       <View style={styles.bottom}>
         {stepNum > 1 && (
@@ -83,12 +83,12 @@ export default function Onboarding() {
             style={styles.prevButton}
             onPress={handlePrev}
           >
-            ← 이전
+            이전
           </MainButton>
         )}
 
         <MainButton size="medium" onPress={handleNext}>
-          다음 →
+          다음
         </MainButton>
       </View>
     </>
@@ -104,7 +104,6 @@ const styles = StyleSheet.create({
 
   content: {
     flex: 1,
-    marginTop: 16,
   },
 
   footer: {

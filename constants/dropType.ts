@@ -24,4 +24,6 @@ export interface DropdownProps<T = string> {
 
   /** 비활성화 */
   disabled?: boolean;
+
+  onOpenRequestScroll?: (y: number) => void;
 }

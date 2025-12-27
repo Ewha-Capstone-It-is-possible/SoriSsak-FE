@@ -1,7 +1,7 @@
 import Dropdown from "@/components/Dropdown";
 import InputBox from "@/components/InputBox";
 import { FONT } from "@/constants/font";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 type Props = {
@@ -14,16 +14,23 @@ export default function Step1(props: Props) {
   const [gender, setGender] = useState("남아");
   const [speechLevel, setSpeechLevel] = useState("발화 없음");
 
+  const scrollRef = useRef<ScrollView>(null);
+
+  const scrollToY = (y: number) => {
+    scrollRef.current?.scrollTo({
+      y: Math.max(y - 120, 0), // 위 여백 확보
+      animated: true,
+    });
+  };
+
   return (
     <View style={styles.container}>
       {/* Title */}
       <Text style={styles.title}>아이를 소개해주세요.</Text>
 
-      {/* Section */}
-      <View style={{ gap: 40 }}>
+      <View style={{ gap: 30 }}>
         <Text style={styles.sectionTitle}>아이의 정보</Text>
 
-        {/* Name */}
         <View style={{ gap: 10 }}>
           <Text style={styles.label}>
             아이 이름 <Text style={styles.required}>*</Text>
@@ -69,7 +76,7 @@ export default function Step1(props: Props) {
             언어 발화 수준 <Text style={styles.required}>*</Text>
           </Text>
           <Dropdown
-            placeholder="성별을 선택해주세요"
+            placeholder="발화 수준을 선택해주세요"
             options={[
               { label: "발화 없음", value: "none" },
               { label: "조금의 단어 발화 가능", value: "some voca" },
@@ -98,7 +105,7 @@ const styles = StyleSheet.create({
   },
 
   sectionTitle: {
-    fontSize: 16,
+    fontSize: 20,
     fontFamily: FONT.cookie.bold,
   },
 
