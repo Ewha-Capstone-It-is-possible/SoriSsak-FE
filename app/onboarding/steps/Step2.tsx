@@ -1,5 +1,7 @@
+import CheckBox from "@/components/CheckBox";
 import InputBox from "@/components/InputBox";
 import { FONT } from "@/constants/font";
+import COLORS from "@/styles/colors";
 import { useState } from "react";
 import {
   Image,
@@ -68,30 +70,18 @@ export default function Step2() {
               <Text style={styles.required}> *</Text>
             </Text>
 
-            <View style={styles.checkRow}>
+            <View style={{ gap: 10 }}>
               {REPORT_OPTIONS.map((item) => {
-                const checked = reports.includes(item);
                 return (
-                  <Pressable
-                    key={item}
-                    onPress={() => toggleReport(item)}
-                    style={[styles.checkBox, checked && styles.checkBoxActive]}
-                  >
-                    <Text
-                      style={[
-                        styles.checkText,
-                        checked && styles.checkTextActive,
-                      ]}
-                    >
-                      {item}
-                    </Text>
-                  </Pressable>
+                  <View key={item} style={styles.checkboxContainer}>
+                    <CheckBox />
+                    <Text style={styles.checkText}>{item}</Text>
+                  </View>
                 );
               })}
             </View>
           </View>
 
-          {/* Teacher Code */}
           <View style={styles.field}>
             <Text style={styles.label}>교사 코드 입력</Text>
             <InputBox
@@ -101,35 +91,33 @@ export default function Step2() {
             />
           </View>
 
-          {/* 아이 추가 사항 */}
+          <View style={{ gap: 20 }}>
+            <View style={{ gap: 15 }}>
+              <Text style={styles.sectionTitle}>아이 추가 사항</Text>
+              <Text style={styles.plus}>
+                아이의 관심사에 맞춰 사용 환경을 제공합니다.
+              </Text>
+            </View>
+            {/* Mood */}
+            <View style={styles.field}>
+              <Text style={styles.label}>
+                좋아하는 그림의 분위기 <Text style={styles.required}>*</Text>
+              </Text>
 
-          <Text style={styles.sectionTitle}>아이 추가 사항</Text>
-          <Text style={styles.plus}>
-            아이의 관심사에 맞춰 사용 환경을 제공합니다.
-          </Text>
-
-          {/* Mood */}
-          <View style={styles.field}>
-            <Text style={styles.label}>
-              좋아하는 그림의 분위기 <Text style={styles.required}>*</Text>
-            </Text>
-
-            <View style={styles.imageRow}>
-              {[0, 1, 2].map((idx) => {
-                const selected = selectedMood === idx;
-                return (
-                  <Pressable
-                    key={idx}
-                    onPress={() => setSelectedMood(idx)}
-                    style={[styles.imageBox, selected && styles.imageBoxActive]}
-                  >
-                    <Image
-                      source={require("@/assets/images/logo1.png")}
-                      style={styles.image}
-                    />
-                  </Pressable>
-                );
-              })}
+              <View style={styles.imageRow}>
+                <Image
+                  source={require("@/assets/images/onboarding/onboarding_img1.png")}
+                  style={styles.imageBox}
+                />
+                <Image
+                  source={require("@/assets/images/onboarding/onboarding_img2.png")}
+                  style={styles.imageBox}
+                />
+                <Image
+                  source={require("@/assets/images/onboarding/onboarding_img3.png")}
+                  style={styles.imageBox}
+                />
+              </View>
             </View>
           </View>
 
@@ -179,7 +167,6 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 20,
     fontFamily: FONT.cookie.bold,
-    marginVertical: 16,
   },
 
   field: {
@@ -210,40 +197,24 @@ const styles = StyleSheet.create({
     color: "#C3C3C3",
   },
 
-  checkRow: {
+  checkboxContainer: {
     flexDirection: "row",
-    gap: 8,
-  },
-
-  checkBox: {
-    paddingVertical: 10,
-    paddingHorizontal: 14,
-    borderRadius: 12,
-    backgroundColor: "#FFFFFF",
-  },
-
-  checkBoxActive: {
-    backgroundColor: "#FFE571",
+    gap: 11,
   },
 
   checkText: {
-    fontSize: 13,
-    color: "#8A8A8A",
-  },
-
-  checkTextActive: {
-    color: "#232323",
-    fontFamily: FONT.cookie.bold,
+    fontSize: 14,
+    color: COLORS.black,
   },
 
   imageRow: {
     flexDirection: "row",
-    gap: 12,
+    gap: 10,
   },
 
   imageBox: {
-    width: 80,
-    height: 80,
+    width: 105,
+    height: 105,
     borderRadius: 12,
     overflow: "hidden",
     borderWidth: 2,
