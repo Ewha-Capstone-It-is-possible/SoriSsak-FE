@@ -1,12 +1,5 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  Pressable,
-  Image,
-  ScrollView,
-} from "react-native";
 import { FONT } from "@/constants/font";
+import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Speaking() {
@@ -22,7 +15,7 @@ export default function Speaking() {
         <View style={styles.header}>
           <View style={styles.profile}>
             <Image
-              source={require("@/assets/images/logo1.png")}
+              source={require("@/assets/images/profile_img.png")}
               style={styles.avatar}
             />
             <Text style={styles.name}>김서준</Text>
@@ -37,67 +30,7 @@ export default function Speaking() {
             </View>
           </View>
         </View>
-
-        {/* Main Talk Button */}
-        <Pressable style={styles.talkButton}>
-          <Text style={styles.talkText}>💬 말하기</Text>
-        </Pressable>
-
-        {/* Suggest Box */}
-        <View style={styles.suggestBox}>
-          {["🤖 로봇", "🍎 사과", "🥕 당근", "📐 공책", "✏️ 연필"].map(
-            (item) => (
-              <View key={item} style={styles.chip}>
-                <Text style={styles.chipText}>{item}</Text>
-              </View>
-            )
-          )}
-        </View>
-
-        {/* Favorite */}
-        <Text style={styles.sectionTitle}>즐겨찾기</Text>
-        <View style={styles.favoriteRow}>
-          {["⭐ 🍎 사과", "⭐ 🥕 당근", "⭐ 📐 공책"].map((item) => (
-            <View key={item} style={styles.chip}>
-              <Text style={styles.chipText}>{item}</Text>
-            </View>
-          ))}
-        </View>
-
-        {/* Category */}
-        <Text style={styles.sectionTitle}>카테고리</Text>
-        <View style={styles.categoryGrid}>
-          {[
-            { label: "가족", color: "#FFE0E9" },
-            { label: "음식", color: "#FFF0D9" },
-            { label: "감정", color: "#FFF3C4" },
-            { label: "활동", color: "#E8F8EC" },
-            { label: "장소", color: "#E6F0FF" },
-            { label: "물건", color: "#F1E8FF" },
-          ].map((item) => (
-            <View
-              key={item.label}
-              style={[styles.categoryBox, { backgroundColor: item.color }]}
-            >
-              <Text style={styles.categoryText}>{item.label}</Text>
-            </View>
-          ))}
-        </View>
-
-        {/* 스크롤 여백 (버튼 공간 확보) */}
-        <View style={{ height: 120 }} />
       </ScrollView>
-
-      {/* Fixed Bottom Buttons */}
-      <View style={styles.bottomFixed}>
-        <Pressable style={styles.mainButton}>
-          <Text style={styles.mainButtonText}>말하기</Text>
-        </Pressable>
-
-        <Pressable style={styles.subButton}>
-          <Text style={styles.subButtonText}>배지 보기</Text>
-        </Pressable>
-      </View>
     </SafeAreaView>
   );
 }
