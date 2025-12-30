@@ -87,7 +87,11 @@ export default function Onboarding() {
           </MainButton>
         )}
 
-        <MainButton size="medium" onPress={handleNext}>
+        <MainButton
+          size="medium"
+          style={styles.nextButton}
+          onPress={handleNext}
+        >
           다음
         </MainButton>
       </View>
@@ -114,7 +118,17 @@ const styles = StyleSheet.create({
   },
 
   prevButton: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#F4F4F4",
+    borderWidth: 1,
+    borderColor: "#e6e6e6",
+    flex: 1,
   },
-  bottom: { padding: 30, backgroundColor: "#ffffff" },
+  nextButton: { flex: 1, borderWidth: 1, borderColor: "transparent" },
+
+  bottom: {
+    padding: 30,
+    backgroundColor: "#ffffff",
+    flexDirection: "row",
+    gap: 10,
+  },
 });

@@ -1,13 +1,19 @@
-import React, { ReactNode } from "react";
-import { Pressable, Text, StyleSheet, ViewStyle } from "react-native";
 import { FONT } from "@/constants/font";
+import React, { ReactNode } from "react";
+import {
+  Pressable,
+  StyleProp,
+  StyleSheet,
+  Text,
+  ViewStyle,
+} from "react-native";
 
 interface ButtonProps {
   children: ReactNode;
   size?: "medium" | "large";
   selected?: boolean;
   onPress?: () => void;
-  style?: ViewStyle;
+  style?: StyleProp<ViewStyle>;
   disabled?: boolean;
 }
 
