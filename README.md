@@ -10,10 +10,10 @@
 <table align="center">
   <tr>
     <td align="center">
+      <h3>프론트엔드💻</h3><br/>
       <img src="https://github.com/seunghye-rain.png" width="130" height="130" style="border-radius: 50%;" /><br />
       <b>양승혜</b><br />
       <a href="https://github.com/seunghye-rain">@seunghye-rain</a><br />
-      <sub>프론트엔드💻</sub>
       <sub>React Native 앱 UI 개발 및 인터랙션 설계</sub>
     </td>
   </tr>
